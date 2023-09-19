@@ -1,8 +1,9 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 MAINTAINER Mikel Madariaga <mikel@irontec.com>
+MAINTAINER Ivan Alonso <kaian@irontec.com>
 
-RUN echo 'deb [trusted=yes] http://packages.irontec.com/debian halliday main extra' >> /etc/apt/sources.list
+RUN echo 'deb [trusted=yes] http://packages.irontec.com/debian bleeding-bookworm main extra' >> /etc/apt/sources.list
 
 RUN apt-get update
 RUN apt-get install --assume-yes --force-yes \
@@ -17,10 +18,12 @@ RUN apt-get install --assume-yes --force-yes \
         sqlite3 \
         sphinx-intl \
         nodejs \
-        mysql-client \
+        npm \
+        default-mysql-client \
         python3-pip \
         php8.0 \
         php8.0-cli \
+        php8.0-intl \
         php8.0-mysql \
         php8.0-xml \
         php8.0-gd \
@@ -50,7 +53,7 @@ RUN chown jenkins.jenkins /opt/
 RUN npm install -g swagger-cli
 
 # Install gherking fromatter
-RUN pip install reformat-gherkin
+RUN pip install --break-system-packages reformat-gherkin
 
 # Base project
 USER $UNAME
@@ -63,6 +66,7 @@ RUN wget https://github.com/sebastianbergmann/phpunit/archive/6.5.14.zip -O /opt
 RUN unzip /opt/phpunit/phpunit.zip -d /opt/phpunit/
 
 # Get dependencies
+RUN composer -d /opt/irontec/ivozprovider/library/ config --no-plugins allow-plugins.symfony/flex true
 RUN /opt/irontec/ivozprovider/library/bin/composer-install --prefer-dist --no-progress
 
 # Store the main project vendor
