@@ -65,6 +65,7 @@
         }
     },
     "config": {
+        "allow-plugins": true,
         "sort-packages": true,
         "preferred-install": {
             "*": "git"
