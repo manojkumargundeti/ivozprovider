@@ -1,0 +1,20 @@
+ws:
+   listen: 127.0.0.1:8081
+   cert: configs/server.crt
+   key: configs/server.key
+   jwt_public: /opt/irontec/ivozprovider/storage/jwt/public.pem
+   jwt_private: /opt/irontec/ivozprovider/storage/jwt/private.pem
+redis:
+   master: mymaster
+   sentinel_host: 127.0.0.1
+   sentinel_port: 26379
+   pool_size: 52
+   db: 1
+sentinels:
+   host: cache.ivozprovider.local
+   port: '26379'
+http:
+   api:
+      platform: https://127.0.0.1/api/platform
+      brand: https://127.0.0.1/api/brand
+      client: https://127.0.0.1/api/client
