@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     libjs-sphinxdoc \
     libjs-jquery \
     make \
+    npm \
     nodejs \
     openssh-client \
     php8.2 \
